@@ -1,9 +1,11 @@
 package com.example.coding.demo.service;
 
+import com.example.coding.demo.config.CacheConfig;
 import com.example.coding.demo.model.Employee;
 import com.example.coding.demo.repo.EmployeeRepository;
 import com.example.coding.demo.util.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +33,7 @@ public class EmployeeService {
     }
 
 
+    @Cacheable(value = CacheConfig.CACHE_KEY_NAME,key = "#id")
     public Optional<Employee> getEmployee(Integer id) {
         return this.employeeRepository.findById(id);
     }
